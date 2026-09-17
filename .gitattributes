@@ -1,0 +1,9 @@
+# 知识库主体是 Markdown；把技能里的脚本标记为 vendored，
+# 避免 GitHub 语言统计把本仓库识别成 PowerShell
+copilot/skills/** linguist-vendored
+*.ps1 linguist-vendored
+*.cmd linguist-vendored
+*.sh linguist-vendored
+
+# 笔记文本统一按 LF 处理（raw/ 下的原始材料保持字节不变，故不设置）
+*.md text eol=lf
