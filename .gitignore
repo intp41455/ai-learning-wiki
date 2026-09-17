@@ -1,0 +1,26 @@
+# Obsidian 本地环境（插件二进制 / 工作区状态，体积大且属本地配置）
+.obsidian/plugins/
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# 本地向量索引与缓存
+.smart-env/
+.makemd/
+.claudian/
+.codegraph/
+.space/
+
+# 各 AI 工具配置目录（非知识内容）
+.claude/
+.agents/
+.opencode/
+.codex/
+
+# 构建中间产物
+_ud/
+.archify-*
+.trash/
+
+# 系统
+.DS_Store
+Thumbs.db

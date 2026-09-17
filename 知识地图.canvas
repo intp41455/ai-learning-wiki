@@ -1,0 +1,245 @@
+{
+  "nodes": [
+    {
+      "id": "a1b2c3d4e5f60001",
+      "type": "text",
+      "text": "# Wiki 全景知识地图\n\n按主题聚类，点击节点可直接跳转笔记。导图 = 层级结构，图谱 = 关联网络。",
+      "x": -260,
+      "y": -320,
+      "width": 520,
+      "height": 120
+    },
+    {
+      "id": "a1b2c3d4e5f60002",
+      "type": "text",
+      "text": "## AI / 机器学习",
+      "x": -600,
+      "y": -140,
+      "width": 320,
+      "height": 70,
+      "color": "1"
+    },
+    {
+      "id": "a1b2c3d4e5f60003",
+      "type": "file",
+      "file": "concepts/ai-mindmap.md",
+      "x": -600,
+      "y": -40,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60004",
+      "type": "file",
+      "file": "concepts/ai-knowledge-graph.md",
+      "x": -600,
+      "y": 210,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60005",
+      "type": "file",
+      "file": "concepts/ai-learning-path.md",
+      "x": -240,
+      "y": -40,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60006",
+      "type": "file",
+      "file": "concepts/one-hour-function-to-transformer.md",
+      "x": -240,
+      "y": 210,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60007",
+      "type": "text",
+      "text": "## Python 编程",
+      "x": 140,
+      "y": -140,
+      "width": 320,
+      "height": 70,
+      "color": "4"
+    },
+    {
+      "id": "a1b2c3d4e5f60008",
+      "type": "file",
+      "file": "concepts/python/python-identifiers-mindmap.md",
+      "x": 140,
+      "y": -40,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60009",
+      "type": "file",
+      "file": "concepts/python/python-identifiers-graph.md",
+      "x": 140,
+      "y": 210,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f6000a",
+      "type": "file",
+      "file": "concepts/python/python-identifiers-naming.md",
+      "x": 500,
+      "y": -40,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f6000b",
+      "type": "file",
+      "file": "concepts/python/python-variable-swap.md",
+      "x": 500,
+      "y": 210,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f6000c",
+      "type": "file",
+      "file": "index.md",
+      "x": -260,
+      "y": 470,
+      "width": 320,
+      "height": 160
+    },
+    {
+      "id": "a1b2c3d4e5f6000d",
+      "type": "file",
+      "file": "concepts/python/python-variable-swap-mindmap.md",
+      "x": 180,
+      "y": 70,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f6000e",
+      "type": "file",
+      "file": "concepts/python/python-variable-swap-graph.md",
+      "x": 180,
+      "y": 340,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f6000f",
+      "type": "file",
+      "file": "concepts/python/variable-swap-direct-assignment-trap.md",
+      "x": 820,
+      "y": 70,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60010",
+      "type": "file",
+      "file": "concepts/python/temp-variable-swap.md",
+      "x": 820,
+      "y": 230,
+      "width": 320,
+      "height": 220
+    },
+    {
+      "id": "a1b2c3d4e5f60011",
+      "type": "file",
+      "file": "concepts/python/three-variable-swap-exercise.md",
+      "x": 820,
+      "y": 390,
+      "width": 320,
+      "height": 220
+    }
+  ],
+  "edges": [
+    {
+      "id": "b1c2d3e4f5a60001",
+      "fromNode": "a1b2c3d4e5f60002",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f60003",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60002",
+      "fromNode": "a1b2c3d4e5f60002",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f60004",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60003",
+      "fromNode": "a1b2c3d4e5f60003",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f60005",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60004",
+      "fromNode": "a1b2c3d4e5f60007",
+      "fromSide": "left",
+      "toNode": "a1b2c3d4e5f60008",
+      "toSide": "right"
+    },
+    {
+      "id": "b1c2d3e4f5a60005",
+      "fromNode": "a1b2c3d4e5f60007",
+      "fromSide": "left",
+      "toNode": "a1b2c3d4e5f60009",
+      "toSide": "right"
+    },
+    {
+      "id": "b1c2d3e4f5a60006",
+      "fromNode": "a1b2c3d4e5f60008",
+      "fromSide": "left",
+      "toNode": "a1b2c3d4e5f6000a",
+      "toSide": "right"
+    },
+    {
+      "id": "b1c2d3e4f5a60007",
+      "fromNode": "a1b2c3d4e5f6000a",
+      "fromSide": "bottom",
+      "toNode": "a1b2c3d4e5f6000b",
+      "toSide": "top"
+    },
+    {
+      "id": "b1c2d3e4f5a60012",
+      "fromNode": "a1b2c3d4e5f6000b",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f6000d",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60013",
+      "fromNode": "a1b2c3d4e5f6000b",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f6000e",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60014",
+      "fromNode": "a1b2c3d4e5f6000b",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f6000f",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60015",
+      "fromNode": "a1b2c3d4e5f6000b",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f60010",
+      "toSide": "left"
+    },
+    {
+      "id": "b1c2d3e4f5a60016",
+      "fromNode": "a1b2c3d4e5f6000b",
+      "fromSide": "right",
+      "toNode": "a1b2c3d4e5f60011",
+      "toSide": "left"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AI 学习知识库 · 从原始材料到知识图谱",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "viewBox": [880, 540],
+    "output": "docs/architecture.html"
+  },
+  "components": [
+    { "id": "src", "type": "external", "label": "原始材料", "sublabel": "视频 / 网页 / PDF", "pos": [16, 236], "size": [138, 66] },
+    { "id": "fetch", "type": "backend", "label": "抓取技能 × 5", "sublabel": "字幕 / 网页 / PDF / 推文", "pos": [190, 228], "size": [160, 82], "tag": "skill 驱动" },
+    { "id": "raw", "type": "database", "label": "raw/ 原始材料", "sublabel": "字节不变 · sha256 可校验", "pos": [400, 92], "size": [178, 66] },
+    { "id": "atomic", "type": "database", "label": "concepts/ 原子笔记", "sublabel": "一页一概念 · 每页 ≥2 出链", "pos": [400, 234], "size": [178, 66] },
+    { "id": "links", "type": "backend", "label": "双链网络", "sublabel": "层级标签 + wikilinks", "pos": [400, 376], "size": [178, 66] },
+    { "id": "out", "type": "frontend", "label": "知识消费层", "sublabel": "图谱 / Canvas / Dataview", "pos": [630, 228], "size": [176, 82], "tag": "11.3 万字 · 49 篇" }
+  ],
+  "boundaries": [
+    { "kind": "security-group", "label": "由 SCHEMA.md 的 12 条强制约定约束（frontmatter / 原子化 / provenance / confidence）", "wraps": ["fetch", "raw", "atomic", "links"] }
+  ],
+  "connections": [
+    { "id": "src-fetch", "from": "src", "to": "fetch", "variant": "emphasis" },
+    { "id": "fetch-raw", "from": "fetch", "to": "raw", "label": "归档原文", "variant": "emphasis", "fromSide": "top", "toSide": "left" },
+    { "id": "raw-atomic", "from": "raw", "to": "atomic", "fromSide": "bottom", "toSide": "top" },
+    { "id": "atomic-links", "from": "atomic", "to": "links", "fromSide": "bottom", "toSide": "top" },
+    { "id": "links-out", "from": "links", "to": "out", "label": "成图", "variant": "emphasis", "fromSide": "right", "toSide": "bottom" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "这不是笔记堆，是知识库工程",
+      "items": [
+        "SCHEMA.md 定义 12 条强制约定，写成可校验的规范而非口头习惯",
+        "文件名全小写连字符无空格；每页必须有 YAML frontmatter（title/created/updated/type/tags/sources）",
+        "原子笔记原则：一个笔记只讲一个概念；课程总览用 type: moc",
+        "page_thresholds 给明确判据：出现 2+ 次才建页、超 200 行才拆分、被替代则移入 _archive/"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "三个值得讲的细节",
+      "items": [
+        "raw/ 原始材料保持字节不变（不写 frontmatter），否则 sha256 校验失效 —— 元信息写在引用它的笔记里",
+        "YAML 里禁止写双链语法：方括号嵌套在 YAML 中是嵌套数组，属非法；改用 related: [note-name]",
+        "provenance：3+ 来源综合的段落末尾标 ^[raw/...]，结论可回溯到原文；confidence 分 high/medium/low，单来源必须标降级"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "产出形态",
+      "items": [
+        "每门课程固定 5 种交付物：结构化清单 / 原子笔记 / 思维导图 / 知识图谱 / 纯文本框架",
+        "11.3 万字 / 49 篇，覆盖 Transformer、注意力机制、CNN、RNN、LLM 术语、Python 规范",
+        "抓取侧 5 个 skill：youtube-transcript / web-fetch / read-pdf / fetch-x / web-search"
+      ]
+    }
+  ]
+}

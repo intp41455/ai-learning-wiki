@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 学习知识图谱 — 闪客 Transformer 系列</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0a0e27;
+    color: #fff;
+    overflow: hidden;
+  }
+  #graph {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+  .controls {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    background: rgba(10, 14, 39, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    max-width: 320px;
+  }
+  .controls h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #64c8ff;
+  }
+  .controls p {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+    font-size: 12px;
+  }
+  .legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  .info-panel {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+    background: rgba(10, 14, 39, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    max-width: 400px;
+    display: none;
+  }
+  .info-panel h3 {
+    font-size: 16px;
+    color: #64c8ff;
+    margin-bottom: 8px;
+  }
+  .info-panel p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #ddd;
+  }
+  .info-panel .meta {
+    font-size: 11px;
+    color: #888;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+<div id="graph"></div>
+
+<div class="controls">
+  <h2>🧠 AI 学习知识图谱</h2>
+  <p>基于闪客《一小时从函数到 Transformer》</p>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #ff6b6b;"></div>
+    <span>核心视频</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #4ecdc4;"></div>
+    <span>架构概念</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #ffe66d;"></div>
+    <span>基础概念</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-color" style="background: #95e1d3;"></div>
+    <span>学习路径</span>
+  </div>
+  <p style="margin-top: 10px; font-size: 11px; color: #666;">
+    💡 拖拽节点 · 滚轮缩放 · 点击查看详情
+  </p>
+</div>
+
+<div class="info-panel" id="infoPanel">
+  <h3 id="infoTitle"></h3>
+  <p id="infoContent"></p>
+  <div class="meta" id="infoMeta"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/standalone/umd/vis-network.min.js"></script>
+<script>
+const nodes = [
+  { id: 1, label: '【闪客】一小时从函数到 Transformer', color: '#ff6b6b', size: 35, font: { size: 18, color: '#fff' } },
+  { id: 2, label: '神经网络基础', color: '#ffe66d', size: 25, font: { size: 14, color: '#fff' } },
+  { id: 3, label: 'CNN 架构', color: '#ffe66d', size: 22, font: { size: 13, color: '#fff' } },
+  { id: 4, label: 'RNN 架构', color: '#ffe66d', size: 22, font: { size: 13, color: '#fff' } },
+  { id: 5, label: 'Transformer 架构', color: '#4ecdc4', size: 30, font: { size: 16, color: '#fff' } },
+  { id: 6, label: '注意力机制', color: '#4ecdc4', size: 28, font: { size: 15, color: '#fff' } },
+  { id: 7, label: 'LLM 核心术语 100 词', color: '#ffe66d', size: 22, font: { size: 13, color: '#fff' } },
+  { id: 8, label: 'AI 学习路径', color: '#95e1d3', size: 25, font: { size: 14, color: '#fff' } },
+  { id: 9, label: '函数 → 神经网络', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 10, label: '参数计算', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 11, label: '优化训练', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 12, label: '矩阵 → CNN', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 13, label: 'RNN → Transformer', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 14, label: 'Self-Attention', color: '#4ecdc4', size: 20, font: { size: 13, color: '#ccc' } },
+  { id: 15, label: '位置编码', color: '#4ecdc4', size: 20, font: { size: 13, color: '#ccc' } },
+  { id: 16, label: 'Encoder-Decoder', color: '#4ecdc4', size: 20, font: { size: 13, color: '#ccc' } },
+  { id: 17, label: '多头注意力', color: '#4ecdc4', size: 20, font: { size: 13, color: '#ccc' } },
+  { id: 18, label: '词嵌入', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 19, label: '梯度消失', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 20, label: 'LSTM/GRU', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 21, label: 'Token/Embedding', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 22, label: 'Fine-tuning/RLHF', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+  { id: 23, label: 'RAG/Agent', color: '#ffe66d', size: 18, font: { size: 12, color: '#ccc' } },
+];
+
+const edges = [
+  { from: 1, to: 2 },
+  { from: 1, to: 3 },
+  { from: 1, to: 4 },
+  { from: 1, to: 5 },
+  { from: 1, to: 8 },
+  { from: 2, to: 9 },
+  { from: 2, to: 10 },
+  { from: 2, to: 11 },
+  { from: 3, to: 12 },
+  { from: 4, to: 18 },
+  { from: 4, to: 19 },
+  { from: 4, to: 20 },
+  { from: 4, to: 13 },
+  { from: 5, to: 6 },
+  { from: 5, to: 14 },
+  { from: 5, to: 15 },
+  { from: 5, to: 16 },
+  { from: 5, to: 17 },
+  { from: 6, to: 14 },
+  { from: 7, to: 21 },
+  { from: 7, to: 22 },
+  { from: 7, to: 23 },
+  { from: 8, to: 2 },
+  { from: 8, to: 5 },
+  { from: 8, to: 7 },
+];
+
+const nodeInfo = {
+  1: { title: '【闪客】一小时从函数到 Transformer', content: 'UP 主：飞天闪客 | 播放量 130万+\n完整系列：函数 → 神经网络 → CNN → RNN → Transformer → 大模型100词\n共 7 集，总时长约 1 小时，用大白话 + 动画讲解 AI 原理。', meta: 'B站 BV: BV1NCgVzoEG9 | 2025-07-21' },
+  2: { title: '神经网络基础', content: '函数、参数、损失函数、梯度下降、反向传播、优化器、过拟合/欠拟合\n来源：第 01-03 集', meta: 'concepts/neural-network-basics.md' },
+  3: { title: 'CNN 架构', content: '卷积核、特征图、池化、局部连接、权值共享\n来源：第 04 集', meta: 'concepts/cnn-architecture.md' },
+  4: { title: 'RNN 架构', content: '词嵌入、LSTM/GRU、梯度消失、序列处理\n来源：第 05 集', meta: 'concepts/rnn-architecture.md' },
+  5: { title: 'Transformer 架构', content: 'Self-Attention、位置编码、Encoder-Decoder、多头注意力\n来源：第 06 集', meta: 'concepts/transformer-architecture.md' },
+  6: { title: '注意力机制', content: 'Q/K/V 三分法、缩放点积注意力、掩码注意力、交叉注意力\n来源：第 06 集', meta: 'concepts/attention-mechanism.md' },
+  7: { title: 'LLM 核心术语 100 词', content: 'Token、Embedding、Temperature、Top-p/k、Fine-tuning、RLHF、RAG、Agent\n来源：第 07 集', meta: 'concepts/llm-terms-100.md' },
+  8: { title: 'AI 学习路径', content: '从函数到 Transformer 再到 LLM 的完整学习路线\n包含视频资源、学习顺序、关键概念', meta: 'concepts/ai-learning-path.md' },
+  14: { title: 'Self-Attention', content: '每个词元直接与序列中所有其他词元交互\n计算：Attention(Q,K,V) = softmax(QK^T / √d_k) · V', meta: 'attention-mechanism.md' },
+  15: { title: '位置编码', content: '注入词序信息，原始方案：正弦/余弦函数\n解决 Attention 排列不变问题', meta: 'transformer-architecture.md' },
+  16: { title: 'Encoder-Decoder', content: 'Encoder 编码输入序列，Decoder 自回归生成输出\n交叉注意力让 Decoder 参考 Encoder 的全部输出', meta: 'transformer-architecture.md' },
+  17: { title: '多头注意力', content: 'Q/K/V 拆成 h 个头，每个头独立做注意力\n类比：h 个专家从不同角度分析', meta: 'transformer-architecture.md' },
+};
+
+const container = document.getElementById('graph');
+const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+const options = {
+  physics: {
+    enabled: true,
+    barnesHut: {
+      gravitationalConstant: -3000,
+      centralGravity: 0.3,
+      springLength: 150,
+      springConstant: 0.04,
+      damping: 0.09,
+    },
+  },
+  nodes: {
+    borderWidth: 2,
+    shadow: true,
+    shape: 'dot',
+  },
+  edges: {
+    width: 1.5,
+    color: { color: '#64c8ff', highlight: '#fff' },
+    smooth: { type: 'continuous' },
+  },
+  interaction: {
+    hover: true,
+    tooltipDelay: 200,
+    dragNodes: true,
+    zoomView: true,
+  },
+};
+
+const network = new vis.Network(container, data, options);
+
+network.on('click', function(params) {
+  if (params.nodes.length > 0) {
+    const nodeId = params.nodes[0];
+    const info = nodeInfo[nodeId];
+    if (info) {
+      document.getElementById('infoTitle').textContent = info.title;
+      document.getElementById('infoContent').textContent = info.content;
+      document.getElementById('infoMeta').textContent = info.meta;
+      document.getElementById('infoPanel').style.display = 'block';
+    } else {
+      document.getElementById('infoPanel').style.display = 'none';
+    }
+  }
+});
+
+network.on('dragStart', function() {
+  document.getElementById('infoPanel').style.display = 'none';
+});
+</script>
+</body>
+</html>
