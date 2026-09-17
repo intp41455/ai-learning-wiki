@@ -18,11 +18,11 @@ confidence: high
 ## [2026-09-03] create | Wiki 初始化
 - Domain: 个人知识库 / AI 辅助学习
 - 目录结构创建：SCHEMA.md, index.md, log.md, raw/, entities/, concepts/, comparisons/, queries/
-- 配置 WIKI_PATH=/c/Users/intpj/wiki 写入 ~/.hermes/.env
-- Obsidian 可用，Graph View 路径：C:\Users\intpj\wiki
+- 配置 WIKI_PATH=<vault> 写入 ~/.hermes/.env
+- Obsidian 可用，Graph View 路径：<用户目录>\wiki
 
 ## [2026-09-03] sync | OneDrive 同步
-- 将 wiki 复制到 C:\Users\intpj\OneDrive\wiki\
+- 将 wiki 复制到 <用户目录>\OneDrive\wiki\
 - 更新 Obsidian 配置指向 OneDrive 路径
 - 手机可通过 OneDrive 同步查看
 
@@ -84,7 +84,7 @@ confidence: high
 - 生成 knowledge-graph.html（9KB）
 - 23 个节点，4 种颜色分类
 - 支持拖拽、缩放、点击查看详情
-- 位置：C:\Users\intpj\OneDrive\wiki\knowledge-graph.html
+- 位置：<用户目录>\OneDrive\wiki\knowledge-graph.html
 
 ## [2026-09-06] fix | 按 SRT→Wiki Skill 标准全面整改（审计后修复）
 
@@ -124,7 +124,7 @@ confidence: high
 - 统一 wikilink 为短名；index.md 2 条死链已修；页面计数 10 → 27
 - log.md 补 frontmatter
 - 全库死链复检：0（SCHEMA 内示例文本已加反引号）
-- 旧库 C:/Users/intpj/wiki 标记废弃（不删除，待人工确认）
+- 旧库 <用户目录>/wiki 标记废弃（不删除，待人工确认）
 - WIKI_PATH 重新写入 ~/.hermes/.env，指向 OneDrive 库
 
 ### 遗留（无法自动修复）

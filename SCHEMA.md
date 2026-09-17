@@ -23,7 +23,7 @@ frontmatter_required: [title, created, updated, type, tags, sources]
 type_allowed: [concept, moc, mindmap, graph, transcript, index, topic-index, summary]
 confidence_levels: [high, medium, low]
 contested: true
-wiki_path: C:\Users\intpj\OneDrive\wiki
+wiki_path: <用户目录>\OneDrive\wiki
 deliverables_per_course:
   - 结构化清单（层级 + 关联）
   - 原子笔记（每个核心概念一个）
